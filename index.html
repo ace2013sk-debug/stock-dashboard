@@ -3345,6 +3345,9 @@ body .sidebar .nav-item.active{background:linear-gradient(135deg,rgba(225,48,108
 body .sidebar .nav-item .nav-icon{width:22px!important;height:22px!important;flex:0 0 22px;margin:0!important;padding:0!important;border:0!important;border-radius:9px!important;background:rgba(64,93,230,.08)!important;box-shadow:inset 0 0 0 1px rgba(64,93,230,.1)!important;color:#5e6678!important;display:inline-flex!important;align-items:center;justify-content:center;font-size:12px!important;font-weight:700!important;line-height:1;letter-spacing:0}
 body .sidebar .nav-item.active .nav-icon{color:#e1306c!important;background:rgba(225,48,108,.13)!important;box-shadow:inset 0 0 0 1px rgba(225,48,108,.18)!important}
 body .sidebar .chat{flex:0 0 auto}
+
+/* a44 보정: 메뉴명 span의 nowrap 해제(a44 기존 규칙 때문) */
+body .sidebar .nav-item>span:last-child{white-space:normal!important;min-width:0;flex:1 1 auto;overflow-wrap:anywhere}
 </style>
 </body>
 </html>
