@@ -593,6 +593,87 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
       .screen-body.split-2, .screen-body.split-3, .screen-body.ledger-split { grid-template-columns: repeat(2,minmax(0,1fr)); }
     }
   </style>
+<style id="mn-chat-style">
+/* ===== 챗봇 ===== */
+#cbFab{position:fixed;right:22px;bottom:22px;z-index:9000;width:58px;height:58px;border-radius:50%;border:3px solid #172033;background:#405de6;color:#fff;font-size:26px;cursor:pointer;box-shadow:4px 4px 0 #172033;display:flex;align-items:center;justify-content:center}
+#cbFab:hover{transform:translate(-1px,-1px);box-shadow:6px 6px 0 #172033}
+#cbFab[hidden]{display:none}
+#cbPanel{position:fixed;z-index:9001;left:0;top:0;width:380px;height:560px;min-width:300px;min-height:360px;max-width:calc(100vw - 8px);max-height:calc(100vh - 8px);resize:both;overflow:hidden;display:none;flex-direction:column;background:#fff;border:3px solid #172033;border-radius:16px;box-shadow:6px 6px 0 #172033;font-family:Pretendard,"Noto Sans KR","Malgun Gothic",sans-serif;color:#172033}
+#cbPanel.open{display:flex}
+#cbHead{flex:0 0 auto;display:flex;align-items:center;gap:8px;padding:10px 12px;background:#405de6;color:#fff;cursor:move;user-select:none;touch-action:none}
+#cbHead b{font-size:15px;flex:1}
+#cbHead small{font-size:11px;opacity:.85;font-weight:400}
+#cbHead button{border:2px solid #172033;background:#ffe81a;color:#172033;border-radius:8px;font-weight:800;width:28px;height:28px;cursor:pointer;font-size:14px;line-height:1;padding:0}
+#cbBody{flex:1;min-height:0;overflow:auto;padding:12px;background:#f5f7ff;display:flex;flex-direction:column;gap:10px}
+.cb-msg{max-width:92%;padding:9px 12px;border-radius:14px;font-size:13px;line-height:1.55;border:2px solid #172033;word-break:keep-all;overflow-wrap:anywhere}
+.cb-msg.bot{align-self:flex-start;background:#fff;border-bottom-left-radius:4px}
+.cb-msg.user{align-self:flex-end;background:#ffe81a;border-bottom-right-radius:4px;font-weight:700}
+.cb-msg b{font-weight:800}
+.cb-actions{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.cb-detail{border:2px solid #172033;background:#7ef0a5;color:#172033;border-radius:10px;padding:5px 10px;font-weight:800;font-size:12px;cursor:pointer;box-shadow:2px 2px 0 #172033}
+.cb-detail:hover{transform:translate(-1px,-1px);box-shadow:3px 3px 0 #172033}
+.cb-faq{display:flex;flex-direction:column;gap:6px}
+.cb-faq button{text-align:left;border:2px solid #172033;background:#fff;border-radius:10px;padding:7px 10px;font-size:12.5px;font-weight:700;cursor:pointer;color:#172033;line-height:1.35}
+.cb-faq button:hover{background:#bf8cff}
+.cb-faq button i{font-style:normal;display:inline-block;min-width:22px;color:#405de6;font-weight:900}
+#cbForm{flex:0 0 auto;display:flex;gap:6px;padding:10px;border-top:3px solid #172033;background:#fff}
+#cbInput{flex:1;min-width:0;border:2px solid #172033;border-radius:10px;padding:8px 10px;font-size:13px;font-family:inherit}
+#cbForm button{border:2px solid #172033;background:#405de6;color:#fff;border-radius:10px;padding:0 14px;font-weight:800;cursor:pointer}
+#cbMore{align-self:flex-start;border:2px dashed #172033;background:transparent;border-radius:10px;padding:5px 10px;font-size:12px;font-weight:700;cursor:pointer;color:#172033}
+@media (max-width:520px){#cbPanel{width:calc(100vw - 8px)!important}}
+
+/* ===== 매뉴얼 (a11 스타일: 네오브루탈리즘 + 파스텔 캐릭터) ===== */
+#view-manual{--y:#FFE81A;--p:#BF8CFF;--m:#7EF0A5;--o:#FF6B45;--cream:#FBF7EF;--ink:#0A0A0A;--bw:clamp(3px,.45cqmin,5px);--sh:clamp(4px,.7cqmin,8px);padding:0}
+#view-manual .mn-wrap{position:relative;flex:1;min-height:0;container-type:size;background:var(--cream);color:var(--ink);overflow:hidden;font-family:"EmojiOnly",Pretendard,"Noto Sans KR","Malgun Gothic",sans-serif;font-weight:700}
+@font-face{font-family:"EmojiOnly";src:local("Apple Color Emoji"),local("Segoe UI Emoji"),local("Noto Color Emoji");unicode-range:U+1F000-1FAFF,U+2600-27BF,U+2B50,U+2B06,U+FE0F,U+200D,U+2728,U+26A1}
+.mn-slide{position:absolute;inset:0;display:none;padding:4.5cqmin 5cqmin 11cqmin;background:var(--bg,var(--cream));overflow:hidden}
+.mn-slide.on{display:block}
+.mn-tag{display:inline-block;background:var(--ink);color:#fff;padding:.6cqmin 2cqmin;font-size:2.4cqmin;font-weight:900;letter-spacing:.05em;margin-bottom:1.6cqmin}
+.mn-big{font-weight:900;line-height:1.08;color:var(--tc,#fff);-webkit-text-stroke:clamp(2px,.45cqmin,5px) var(--ink);paint-order:stroke fill;text-shadow:clamp(3px,.6cqmin,7px) clamp(3px,.6cqmin,7px) 0 var(--ink);margin:0}
+.mn-h1{font-size:9.5cqmin}.mn-h2{font-size:6.6cqmin}
+.mn-cur::after{content:"";display:inline-block;width:.12em;height:.9em;background:var(--ink);margin-left:.1em;vertical-align:-.1em;animation:mnblink 1s steps(1) infinite}
+@keyframes mnblink{50%{opacity:0}}
+.mn-ch{opacity:1}
+.mn-box{border:var(--bw) solid var(--ink);box-shadow:var(--sh) var(--sh) 0 var(--ink);background:#fff;padding:1.8cqmin 2.2cqmin;font-size:2.55cqmin;line-height:1.5;position:relative}
+.mn-box h3{margin:0 0 .8cqmin;font-size:3cqmin;font-weight:900}
+.mn-box p{margin:0}
+.mn-box.y{background:var(--y)}.mn-box.p{background:var(--p)}.mn-box.m{background:var(--m)}.mn-box.o{background:var(--o)}.mn-box.c{background:var(--cream)}.mn-box.k{background:var(--ink);color:#fff}
+.mn-grid{display:grid;gap:2.4cqmin;margin-top:2.4cqmin}
+.mn-g2{grid-template-columns:repeat(2,minmax(0,1fr))}.mn-g3{grid-template-columns:repeat(3,minmax(0,1fr))}.mn-g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.mn-num{display:inline-flex;align-items:center;justify-content:center;background:var(--ink);color:#fff;min-width:4.6cqmin;height:4.6cqmin;font-size:3cqmin;font-weight:900;margin-right:1cqmin}
+.mn-go{display:inline-block;margin-top:1cqmin;border:var(--bw) solid var(--ink);background:var(--y);color:var(--ink);padding:.5cqmin 1.6cqmin;font-weight:900;font-size:2.3cqmin;cursor:pointer;box-shadow:3px 3px 0 var(--ink);font-family:inherit}
+.mn-go:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--ink)}
+.mn-stamp{position:absolute;right:-1cqmin;top:-2.6cqmin;transform:rotate(6deg);background:var(--o);border:3px solid var(--ink);padding:.3cqmin 1.4cqmin;font-size:2.1cqmin;font-weight:900;color:#fff;box-shadow:3px 3px 0 var(--ink)}
+.mn-cast{position:absolute;right:3.5cqmin;top:3cqmin;width:20cqmin;height:16cqmin;z-index:1}
+.mn-cast.lg{width:46cqmin;height:36cqmin;top:50%;transform:translateY(-52%);right:4cqmin}
+.mn-chr{position:absolute;width:11cqmin;height:11cqmin}
+.mn-chr .bd{position:absolute;inset:5%;border-radius:50%;border:var(--bw) solid var(--ink);box-shadow:var(--sh) var(--sh) 0 var(--ink);background:var(--cbg,#CFE3FA)}
+.mn-chr svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.mn-cast.lg .mn-chr{width:22cqmin;height:22cqmin}
+.mn-bb{position:absolute;background:#fff;border:var(--bw) solid var(--ink);box-shadow:4px 4px 0 var(--ink);padding:.6cqmin 1.4cqmin;font-size:2.1cqmin;font-weight:900;border-radius:1.4cqmin;white-space:nowrap}
+.mn-flow{display:flex;align-items:stretch;gap:1.2cqmin;margin-top:2.4cqmin}
+.mn-flow>.mn-box{flex:1}
+.mn-arrow{align-self:center;font-size:4cqmin;font-weight:900}
+.mn-chart{display:flex;align-items:flex-end;gap:2cqmin;height:19cqmin;padding:1.4cqmin 1.6cqmin 0;border-bottom:var(--bw) solid var(--ink)}
+.mn-bar{flex:1;border:var(--bw) solid var(--ink);box-shadow:3px 3px 0 var(--ink);position:relative;transform-origin:bottom;animation:mnpop .7s cubic-bezier(.34,1.56,.64,1) both;animation-delay:calc(var(--i,0)*.12s)}
+.mn-bar span{position:absolute;left:50%;bottom:100%;transform:translateX(-50%);font-size:2cqmin;font-weight:900;white-space:nowrap;margin-bottom:.4cqmin;animation:mnfade .3s both;animation-delay:calc(var(--i,0)*.12s + .6s)}
+.mn-lbl{display:flex;gap:2cqmin;padding:.8cqmin 1.6cqmin 0;font-size:2cqmin;text-align:center}
+.mn-lbl span{flex:1}
+@keyframes mnpop{from{transform:scale(0)}to{transform:scale(1)}}
+@keyframes mnfade{from{opacity:0}to{opacity:1}}
+.mn-ground{position:absolute;left:0;right:0;bottom:7.6cqmin;height:4cqmin;pointer-events:none;border-top:var(--bw) solid var(--ink);background:var(--m)}
+.mn-nav{position:absolute;left:0;right:0;bottom:0;height:7.6cqmin;z-index:5;display:flex;align-items:center;justify-content:center;gap:2.4cqmin;background:var(--cream);border-top:var(--bw) solid var(--ink);padding:0 2cqmin}
+.mn-nav button{border:var(--bw) solid var(--ink);background:var(--y);color:var(--ink);font-weight:900;font-size:2.6cqmin;padding:.4cqmin 2.2cqmin;cursor:pointer;box-shadow:3px 3px 0 var(--ink);font-family:inherit}
+.mn-nav button:disabled{background:#ddd;color:#777;cursor:default;box-shadow:none}
+.mn-dots{display:flex;gap:1.1cqmin}
+.mn-dots i{width:2.4cqmin;height:2.4cqmin;border:3px solid var(--ink);background:#fff;border-radius:50%;cursor:pointer}
+.mn-dots i.on{background:var(--o)}
+.mn-page{font-weight:900;font-size:2.4cqmin;min-width:8cqmin;text-align:center}
+.mn-note{font-size:2cqmin;margin-top:1.4cqmin;font-weight:700}
+.mn-red{color:#e11d1d;font-weight:900}
+@media (prefers-reduced-motion:reduce){.mn-bar,.mn-bar span{animation:none}.mn-cur::after{animation:none}}
+
+</style>
 </head>
 <body>
 <div class="dashboard-viewport" id="dashboardViewport">
@@ -621,6 +702,8 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
       <div class="nav-group-label">도구</div>
       <button class="nav-item" data-view="ledger"><span class="nav-icon" data-icon="trade-ledger" data-tone="indigo" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><rect x="3" y="3" width="14" height="14" rx="2"/><path d="M3 7h14M7 3v14M7 11h10M7 14h10"/></svg></span><span>거래 원장·산식</span></button>
       <button class="nav-item" data-view="ledger-logic"><span class="nav-icon" data-icon="raw-transform" data-tone="violet" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><ellipse cx="7" cy="5" rx="4" ry="2"/><path d="M3 5v4c0 1.1 1.8 2 4 2 1 0 1.9-.2 2.6-.5M3 9v4c0 1.1 1.8 2 4 2M11 11h6M14.5 8l2.5 3-2.5 3M10 17h7"/></svg></span><span>RAW 처리 로직</span></button>
+      <div class="nav-group-label">안내</div>
+      <button class="nav-item" data-view="manual"><span class="nav-icon" data-icon="manual-book" data-tone="pink" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><path d="M4 3.5h8.5A2.5 2.5 0 0 1 15 6v10.5H6.5A2.5 2.5 0 0 1 4 14z"/><path d="M4 14a2.5 2.5 0 0 1 2.5-2.5H15"/></svg></span><span>매뉴얼</span></button>
     </nav>
     <div class="sidebar-note">본 화면은 거래 원장과 평가가격을 분석한 참고자료입니다. 세무 신고나 투자 권유를 위한 자료가 아닙니다.</div>
   </aside>
@@ -652,6 +735,181 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
     <div id="uploadMessage" class="upload-message"></div>
 
     <section class="content">
+      <section class="view" id="view-manual">
+        <div class="mn-wrap" id="mnWrap">
+          <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+            <symbol id="mn-coinie" viewBox="0 0 100 100" data-c="1"><circle cx="50" cy="52" r="30" fill="#FFE81A" stroke="#0A0A0A" stroke-width="4"/><circle cx="50" cy="52" r="22" fill="none" stroke="#0A0A0A" stroke-width="2.5"/><circle cx="41" cy="48" r="3.4" fill="#0A0A0A"/><circle cx="59" cy="48" r="3.4" fill="#0A0A0A"/><path d="M42 58q8 8 16 0" fill="none" stroke="#0A0A0A" stroke-width="3.4" stroke-linecap="round"/><circle cx="35" cy="56" r="3.6" fill="#FFB3B3"/><circle cx="65" cy="56" r="3.6" fill="#FFB3B3"/><path d="M46 22l4-8 4 8" fill="#7EF0A5" stroke="#0A0A0A" stroke-width="3" stroke-linejoin="round"/></symbol>
+            <symbol id="mn-bookie" viewBox="0 0 100 100" data-c="1"><rect x="24" y="22" width="52" height="60" rx="5" fill="#BF8CFF" stroke="#0A0A0A" stroke-width="4"/><rect x="24" y="22" width="9" height="60" fill="#8f5fe0" stroke="#0A0A0A" stroke-width="3"/><circle cx="48" cy="48" r="3.4" fill="#0A0A0A"/><circle cx="64" cy="48" r="3.4" fill="#0A0A0A"/><path d="M48 58q8 8 16 0" fill="none" stroke="#0A0A0A" stroke-width="3.4" stroke-linecap="round"/><circle cx="42" cy="56" r="3.6" fill="#FFB3B3"/><circle cx="70" cy="56" r="3.6" fill="#FFB3B3"/></symbol>
+            <symbol id="mn-botie" viewBox="0 0 100 100" data-c="1"><line x1="50" y1="14" x2="50" y2="26" stroke="#0A0A0A" stroke-width="4"/><circle cx="50" cy="13" r="5" fill="#FF6B45" stroke="#0A0A0A" stroke-width="3"/><rect x="22" y="26" width="56" height="48" rx="14" fill="#7EF0A5" stroke="#0A0A0A" stroke-width="4"/><circle cx="40" cy="46" r="5" fill="#fff" stroke="#0A0A0A" stroke-width="3"/><circle cx="60" cy="46" r="5" fill="#fff" stroke="#0A0A0A" stroke-width="3"/><circle cx="40" cy="46" r="2" fill="#0A0A0A"/><circle cx="60" cy="46" r="2" fill="#0A0A0A"/><path d="M40 60q10 8 20 0" fill="none" stroke="#0A0A0A" stroke-width="3.4" stroke-linecap="round"/><path d="M34 74l-6 12 16-8" fill="#7EF0A5" stroke="#0A0A0A" stroke-width="3.4" stroke-linejoin="round"/></symbol>
+            <symbol id="mn-sproutie" viewBox="0 0 100 100" data-c="1"><path d="M30 56h40l-5 28H35z" fill="#FF6B45" stroke="#0A0A0A" stroke-width="4" stroke-linejoin="round"/><circle cx="43" cy="68" r="3" fill="#0A0A0A"/><circle cx="57" cy="68" r="3" fill="#0A0A0A"/><path d="M45 75q5 5 10 0" fill="none" stroke="#0A0A0A" stroke-width="3" stroke-linecap="round"/><path d="M50 56V36" stroke="#0A0A0A" stroke-width="4"/><path d="M50 40q-22-2-22-20 20 0 22 20z" fill="#7EF0A5" stroke="#0A0A0A" stroke-width="3.4" stroke-linejoin="round"/><path d="M50 36q18-2 20-18-18 0-20 18z" fill="#7EF0A5" stroke="#0A0A0A" stroke-width="3.4" stroke-linejoin="round"/></symbol>
+          </defs></svg>
+
+          <!-- 1 표지 -->
+          <article class="mn-slide" data-group="도입" data-title="표지" style="--bg:#FFE81A">
+            <span class="mn-tag">DASHBOARD MANUAL</span>
+            <h1 class="mn-big mn-h1" data-type style="--tc:#BF8CFF">모두의 주식<br>사용 가이드</h1>
+            <div class="mn-box c" style="display:inline-block;margin-top:3cqmin;font-size:3cqmin">📊 핵심 화면 · 주요 데이터 · 챗봇을 10쪽으로 정리했어요</div>
+            <div class="mn-box k" style="display:inline-block;margin:3cqmin 0 0 2cqmin;font-size:2.6cqmin">2026.11.14 기준</div>
+            <div class="mn-cast lg">
+              <div class="mn-chr" style="left:0;top:20%;--cbg:#FFE29A"><div class="bd"></div><svg><use href="#mn-coinie"/></svg></div>
+              <div class="mn-chr" style="left:42%;top:0;--cbg:#CFE3FA"><div class="bd"></div><svg><use href="#mn-botie"/></svg></div>
+              <div class="mn-chr" style="left:66%;top:44%;--cbg:#FFDCDC"><div class="bd"></div><svg><use href="#mn-bookie"/></svg></div>
+              <div class="mn-bb" style="left:28%;top:62%">안녕하세요! 💬</div>
+            </div>
+          </article>
+
+          <!-- 2 목차 -->
+          <article class="mn-slide" data-group="도입" data-title="오늘 배울 순서" style="--bg:#BF8CFF">
+            <span class="mn-tag">CONTENTS</span>
+            <h2 class="mn-big mn-h2" data-type style="--tc:#FFE81A">오늘 배울 순서</h2>
+            <div class="mn-grid mn-g4">
+              <div class="mn-box y"><span class="mn-num">1</span><h3>화면 구성</h3><p>왼쪽 메뉴와 상단 범위를 먼저 익혀요. (3쪽)</p></div>
+              <div class="mn-box m"><span class="mn-num">2</span><h3>숫자 읽기</h3><p>손익이 어떻게 만들어지는지 봐요. (4~5쪽)</p></div>
+              <div class="mn-box o"><span class="mn-num">3</span><h3>데이터 찾기</h3><p>관심 종목, RAW DATA, 근거 화면. (6~8쪽)</p></div>
+              <div class="mn-box c"><span class="mn-num">4</span><h3>챗봇 활용</h3><p>자주 묻는 질문 10개로 바로 이동해요. (9~10쪽)</p></div>
+            </div>
+            <div class="mn-box k" style="margin-top:3cqmin">💡 각 쪽의 <b>바로가기</b> 버튼을 누르면 실제 화면으로 이동해요. 다시 돌아오려면 왼쪽 <b>매뉴얼</b> 메뉴를 누르세요.</div>
+            <div class="mn-cast"><div class="mn-chr" style="left:30%;top:0;--cbg:#CFE3FA"><div class="bd"></div><svg><use href="#mn-bookie"/></svg></div></div>
+          </article>
+
+          <!-- 3 화면 구성 -->
+          <article class="mn-slide" data-group="화면 이해" data-title="화면 구성" style="--bg:#7EF0A5">
+            <span class="mn-tag">STEP 1 · 화면 구성</span>
+            <h2 class="mn-big mn-h2" data-type style="--tc:#FFE81A">왼쪽 메뉴는 짝꿍 구조예요</h2>
+            <div class="mn-grid mn-g2">
+              <div class="mn-box y"><h3>📈 분석 화면</h3><p>투자 핵심 요약 · 미실현손익 · 실현손익 · 월별 손익 · 매매 타이밍 · 포트폴리오 구조 · 위험 및 효율성 · 벤치마크 비교</p></div>
+              <div class="mn-box p"><h3>🧮 로직 화면</h3><p>분석 화면 바로 아래의 <b>○○ 로직</b> 메뉴예요. 숫자를 만드는 공식과 읽는 법을 보여줘요.</p></div>
+              <div class="mn-box c"><h3>🗂️ 자료 화면</h3><p>관심 종목 · RAW DATA 보기 · 거래 원장·산식. 원천 거래와 가격 이력을 확인해요.</p></div>
+              <div class="mn-box o"><h3>🔎 상단 범위 칩</h3><p>투자 핵심 요약 화면 위쪽에 현재 보유·매도 완료·국내·해외·상장·비상장 범위와 증권사 범위가 나와요.</p></div>
+            </div>
+            <div class="mn-cast"><div class="mn-chr" style="left:30%;top:0;--cbg:#FFE29A"><div class="bd"></div><svg><use href="#mn-coinie"/></svg></div></div>
+          </article>
+
+          <!-- 4 숫자 읽기 -->
+          <article class="mn-slide" data-group="화면 이해" data-title="손익 숫자 읽기" style="--bg:#FFE81A">
+            <span class="mn-tag">STEP 2 · 숫자 읽기</span>
+            <h2 class="mn-big mn-h2" data-type style="--tc:#BF8CFF">총손익 = 세 가지의 합</h2>
+            <div class="mn-flow">
+              <div class="mn-box m"><h3>실현손익</h3><p>팔아서 확정된 손익. 순매도대금 − 매도 장부원가</p></div>
+              <div class="mn-arrow">+</div>
+              <div class="mn-box p"><h3>미실현손익</h3><p>아직 보유 중인 손익. 평가금액 − 남은 주식 원금</p></div>
+              <div class="mn-arrow">+</div>
+              <div class="mn-box o"><h3>부대수익</h3><p>배당·예탁금이용료·환전차액 − 원천징수세금</p></div>
+            </div>
+            <div class="mn-grid mn-g2">
+              <div class="mn-box c"><h3>손익 구성 개념도</h3>
+                <div class="mn-chart"><div class="mn-bar" style="--i:0;height:45%;background:var(--m)"><span>실현</span></div><div class="mn-bar" style="--i:1;height:65%;background:var(--p)"><span>미실현</span></div><div class="mn-bar" style="--i:2;height:25%;background:var(--o)"><span>부대</span></div><div class="mn-bar" style="--i:3;height:95%;background:var(--y)"><span>총손익</span></div></div>
+                <div class="mn-lbl"><span>실현</span><span>미실현</span><span>부대</span><span>총손익</span></div>
+                <div class="mn-note"><span class="mn-red">※ 개념도입니다. 실제 금액이 아니에요.</span></div></div>
+              <div class="mn-box c"><h3>핵심 요약의 차트 3개</h3><p>① <b>손익 브리지</b> 돈의 변화<br>② <b>보유자산 구성</b> 평가금액 기준 비중<br>③ <b>종목별 총손익 기여</b> 막대를 누르면 일자별 거래와 계산 조정표가 열려요.</p>
+                <button class="mn-go" data-goto="overview">핵심 요약 바로가기 ▶</button></div>
+            </div>
+            <div class="mn-cast"><div class="mn-chr" style="left:30%;top:0;--cbg:#CFE3FA"><div class="bd"></div><svg><use href="#mn-coinie"/></svg></div></div>
+          </article>
+
+          <!-- 5 주요 데이터 -->
+          <article class="mn-slide" data-group="화면 이해" data-title="주요 데이터 확인" style="--bg:#FBF7EF">
+            <span class="mn-tag">STEP 2 · 주요 데이터</span>
+            <h2 class="mn-big mn-h2" data-type style="--tc:#FF6B45">궁금한 숫자, 어디서 볼까?</h2>
+            <div class="mn-grid mn-g3">
+              <div class="mn-box y"><h3>📦 지금 가진 주식</h3><p>보유수량·평균단가·평가금액·수익률은 <b>미실현손익 분석</b>에서 확인해요.</p><button class="mn-go" data-goto="holdings">바로가기 ▶</button></div>
+              <div class="mn-box m"><h3>💸 판 주식</h3><p>종목별·누적 실현손익은 <b>실현손익 분석</b>, 승률·손익비·거래비용은 <b>매도손익 로직</b>에서 봐요.</p><button class="mn-go" data-goto="realized">바로가기 ▶</button></div>
+              <div class="mn-box p"><h3>🗓️ 월별 흐름</h3><p>매도 손익과 부대수익을 월별로 합쳐 한눈에 보여줘요. 거래 없는 달도 0원으로 표시돼요.</p><button class="mn-go" data-goto="monthly-profit">바로가기 ▶</button></div>
+              <div class="mn-box o"><h3>🥧 비중·집중도</h3><p><b>포트폴리오 구조</b>에서 종목 비중, 상위 1·3종목, 국내·해외 구성을 봐요.</p><button class="mn-go" data-goto="allocation">바로가기 ▶</button></div>
+              <div class="mn-box c"><h3>🌊 위험</h3><p><b>위험 및 효율성</b>에서 변동성과 최대낙폭, 거래비용 누적을 확인해요.</p><button class="mn-go" data-goto="risk">바로가기 ▶</button></div>
+              <div class="mn-box c"><h3>⏱️ 매매 흐름</h3><p><b>매매 타이밍</b>에서 날짜별 매수·매도와 누적 순매수를 봐요.</p><button class="mn-go" data-goto="timing">바로가기 ▶</button></div>
+            </div>
+            <div class="mn-cast"><div class="mn-chr" style="left:30%;top:0;--cbg:#FFDCDC"><div class="bd"></div><svg><use href="#mn-bookie"/></svg></div></div>
+          </article>
+
+          <!-- 6 관심 종목·벤치마크 -->
+          <article class="mn-slide" data-group="기능 활용" data-title="관심 종목·시장 비교" style="--bg:#BF8CFF">
+            <span class="mn-tag">STEP 3 · 데이터 찾기</span>
+            <h2 class="mn-big mn-h2" data-type style="--tc:#FFE81A">가격 흐름과 시장 비교</h2>
+            <div class="mn-grid mn-g2">
+              <div class="mn-box y"><h3>⭐ 관심 종목</h3><p>선택 종목의 <b>2021-01-01 이후 종가</b>를 분석 요청일까지 보여줘요. 미국 종목은 달러 종가이고, 고점·저점도 함께 확인해요.</p><p class="mn-note">가격 이력이 비어 있으면 ① RAW 업로드 ② 분석 요청 순서로 진행하세요.</p><button class="mn-go" data-goto="watchlist">바로가기 ▶</button></div>
+              <div class="mn-box m"><h3>📏 벤치마크 비교</h3><p>KOSPI와 NASDAQ-100을 <b>시작=100</b>으로 맞춰 내 주식과 비교해요. 산 날짜가 달라 <b>참고용</b>이에요. SpaceX(비상장)는 제외돼요.</p><button class="mn-go" data-goto="benchmark">바로가기 ▶</button></div>
+            </div>
+            <div class="mn-box k" style="margin-top:2.4cqmin">읽는 법: 100보다 위면 처음보다 오른 것, 아래면 내린 것이에요.</div>
+            <div class="mn-cast"><div class="mn-chr" style="left:30%;top:0;--cbg:#FFE29A"><div class="bd"></div><svg><use href="#mn-coinie"/></svg></div></div>
+          </article>
+
+          <!-- 7 RAW DATA -->
+          <article class="mn-slide" data-group="기능 활용" data-title="RAW DATA 업로드" style="--bg:#FFE81A">
+            <span class="mn-tag">STEP 3 · RAW DATA</span>
+            <h2 class="mn-big mn-h2" data-type style="--tc:#BF8CFF">새 파일 올리고 분석하기</h2>
+            <div class="mn-flow">
+              <div class="mn-box c"><span class="mn-num">1</span><h3>파일 선택</h3><p>핵심 요약 상단의 <b>＋ RAW 원장 선택</b>에서 신한·나무증권 .xls/.xlsx를 골라요.</p></div>
+              <div class="mn-arrow">▶</div>
+              <div class="mn-box m"><span class="mn-num">2</span><h3>분석 클릭</h3><p>파일명을 확인하고 <b>분석</b>을 누르면 보유·손익·원장을 다시 계산해요.</p></div>
+              <div class="mn-arrow">▶</div>
+              <div class="mn-box p"><span class="mn-num">3</span><h3>결과 확인</h3><p><b>RAW DATA 보기</b>에서 종목·코드·증권사·거래유형으로 검색해요.</p></div>
+            </div>
+            <div class="mn-grid mn-g2">
+              <div class="mn-box c"><h3>RAW 처리 흐름 개념도</h3>
+                <div class="mn-chart"><div class="mn-bar" style="--i:0;height:95%;background:var(--o)"><span>엑셀 줄</span></div><div class="mn-bar" style="--i:1;height:60%;background:var(--y)"><span>거래</span></div><div class="mn-bar" style="--i:2;height:30%;background:var(--m)"><span>보유종목</span></div></div>
+                <div class="mn-lbl"><span>엑셀 줄 수</span><span>완성된 거래 수</span><span>가진 종목 수</span></div>
+                <div class="mn-note"><span class="mn-red">※ 개념도입니다. 실제 건수가 아니에요.</span></div></div>
+              <div class="mn-box c"><h3>꼭 알아두세요</h3><p>🔒 계좌번호·거래 상대방 등 식별 정보는 가려져요.<br>🏦 은행 입출금은 원장에는 보이지만 투자손익에는 넣지 않아요.</p>
+                <button class="mn-go" data-goto="raw-data">RAW DATA 바로가기 ▶</button></div>
+            </div>
+            <div class="mn-cast"><div class="mn-chr" style="left:30%;top:0;--cbg:#CFE3FA"><div class="bd"></div><svg><use href="#mn-sproutie"/></svg></div></div>
+          </article>
+
+          <!-- 8 근거 확인 -->
+          <article class="mn-slide" data-group="기능 활용" data-title="근거 확인하기" style="--bg:#7EF0A5">
+            <span class="mn-tag">STEP 3 · 근거 확인</span>
+            <h2 class="mn-big mn-h2" data-type style="--tc:#FFE81A">숫자가 궁금하면 로직 화면으로</h2>
+            <div class="mn-grid mn-g2">
+              <div class="mn-box y"><h3>🧮 핵심 산출 로직</h3><p>미실현손익·부대수익·총손익 공식과 세 차트를 읽는 법.</p><button class="mn-go" data-goto="overview-logic">바로가기 ▶</button></div>
+              <div class="mn-box p"><h3>🪙 보유 원가 로직</h3><p>종목별 원금·보유손익·수익률과 <b>정확·복원·추정·고정</b> 상태 표시의 뜻.</p><button class="mn-go" data-goto="holdings-logic">바로가기 ▶</button></div>
+              <div class="mn-box o"><h3>🧾 거래 원장·산식</h3><p>RAW 두 줄을 한 거래로 합치는 방법과 거래 유형별 목록.</p><button class="mn-go" data-goto="ledger">바로가기 ▶</button></div>
+              <div class="mn-box c"><h3>⚙️ RAW 처리 로직</h3><p>검증 규칙, 개인정보 보호, 새 파일을 적용하는 범위.</p><button class="mn-go" data-goto="ledger-logic">바로가기 ▶</button></div>
+            </div>
+            <div class="mn-box k" style="margin-top:2.4cqmin">팁: 핵심 요약의 종목 막대를 누르면 모든 일자별 거래와 계산 조정표가 열려요.</div>
+            <div class="mn-cast"><div class="mn-chr" style="left:30%;top:0;--cbg:#FFDCDC"><div class="bd"></div><svg><use href="#mn-bookie"/></svg></div></div>
+          </article>
+
+          <!-- 9 챗봇 -->
+          <article class="mn-slide" data-group="챗봇" data-title="챗봇 사용법" style="--bg:#FF6B45">
+            <span class="mn-tag">CHATBOT</span>
+            <h2 class="mn-big mn-h2" data-type style="--tc:#FFE81A">오른쪽 아래 💬 챗봇</h2>
+            <div class="mn-grid mn-g3">
+              <div class="mn-box y"><span class="mn-num">1</span><h3>질문 고르기</h3><p>💬 버튼을 누르면 <b>자주 하는 질문 10개</b>가 나와요. 직접 입력해도 돼요.</p></div>
+              <div class="mn-box m"><span class="mn-num">2</span><h3>상세 페이지</h3><p>답변 아래 <b>상세 페이지</b> 버튼을 누르면 설명이 있는 화면으로 바로 이동해요.</p></div>
+              <div class="mn-box p"><span class="mn-num">3</span><h3>내 마음대로</h3><p>위쪽 파란 막대를 끌어 <b>이동</b>, 오른쪽 아래 모서리를 끌어 <b>크기 변경</b>, ⤢ 버튼으로 크게·작게 바꿔요.</p></div>
+            </div>
+            <div class="mn-box c" style="margin-top:2.4cqmin"><b>예시 질문</b> · 투자원금과 평가금액은 어떻게 계산하나요? / 월별 손익은 어디서 보나요?</div>
+            <button class="mn-go" id="mnOpenChat" style="background:var(--m)">챗봇 열어 보기 💬</button>
+            <div class="mn-cast"><div class="mn-chr" style="left:30%;top:0;--cbg:#CFE3FA"><div class="bd"></div><svg><use href="#mn-botie"/></svg></div></div>
+          </article>
+
+          <!-- 10 마무리 -->
+          <article class="mn-slide" data-group="마무리" data-title="요약과 바로가기" style="--bg:#FFE81A">
+            <span class="mn-tag">SUMMARY</span>
+            <h2 class="mn-big mn-h2" data-type style="--tc:#BF8CFF">이것만 기억하세요!</h2>
+            <div class="mn-grid mn-g2">
+              <div class="mn-box c"><h3>✅ 체크리스트</h3><p>① 총손익 = 실현 + 미실현 + 부대수익<br>② 분석 화면 옆에는 로직 화면이 짝꿍<br>③ 새 파일은 RAW 선택 → 분석<br>④ 막히면 💬 챗봇에 질문</p></div>
+              <div class="mn-box m"><h3>🚀 바로가기</h3><p>지금 바로 시작해 보세요.</p>
+                <button class="mn-go" data-goto="overview">핵심 요약 ▶</button> <button class="mn-go" data-goto="raw-data">RAW DATA ▶</button> <button class="mn-go" data-chat="1">챗봇 💬</button></div>
+            </div>
+            <div class="mn-box k" style="margin-top:2.4cqmin">본 화면은 거래 원장과 평가가격을 분석한 참고자료입니다. 세무 신고나 투자 권유를 위한 자료가 아닙니다.</div>
+            <div class="mn-cast lg" style="width:34cqmin;height:26cqmin">
+              <div class="mn-chr" style="left:0;top:20%;--cbg:#FFE29A"><div class="bd"></div><svg><use href="#mn-coinie"/></svg></div>
+              <div class="mn-chr" style="left:48%;top:0;--cbg:#CFE3FA"><div class="bd"></div><svg><use href="#mn-botie"/></svg></div>
+              <div class="mn-bb" style="left:6%;top:-8%">고마워요! 🎉</div>
+            </div>
+          </article>
+
+          <div class="mn-ground"></div>
+          <nav class="mn-nav" aria-label="매뉴얼 이동">
+            <button id="mnPrev" type="button">◀ 이전</button>
+            <div class="mn-dots" id="mnDots"></div>
+            <span class="mn-page" id="mnPage">1 / 10</span>
+            <button id="mnNext" type="button">다음 ▶</button>
+          </nav>
+        </div>
+      </section>
       <section class="view active" id="view-overview">
         <div class="page-conclusion" data-page="overview"></div>
         <div class="logic-guide"><h2>핵심 숫자를 만드는 첫 단계</h2><div class="logic-grid">
@@ -969,7 +1227,7 @@ const viewNames = {
   allocation:'포트폴리오 구조','allocation-logic':'배분 산출 로직',
   risk:'위험 및 효율성','risk-logic':'위험지표 로직',
   benchmark:'벤치마크 비교','benchmark-logic':'시장비교 로직',
-  ledger:'거래 원장','ledger-logic':'RAW 처리 로직','raw-data':'RAW DATA 보기'
+  ledger:'거래 원장','ledger-logic':'RAW 처리 로직','raw-data':'RAW DATA 보기',manual:'매뉴얼'
 };
 const logicTargets = {
   "overview":["overviewMix","overviewMix","overviewMix","overviewMix"],
@@ -2903,6 +3161,167 @@ function fitDashboardToViewport(){
 fitDashboardToViewport();
 window.addEventListener('resize',fitDashboardToViewport);
 window.addEventListener('orientationchange',fitDashboardToViewport);
+</script>
+<button id="cbFab" type="button" aria-label="챗봇 열기" title="챗봇">💬</button>
+<div id="cbPanel" role="dialog" aria-label="모두의 주식 챗봇">
+  <div id="cbHead"><b>💬 모두의 주식 도우미 <small>(끌어서 이동)</small></b><button id="cbSize" type="button" title="크게·작게" aria-label="크기 전환">⤢</button><button id="cbClose" type="button" title="닫기" aria-label="닫기">✕</button></div>
+  <div id="cbBody"></div>
+  <form id="cbForm" autocomplete="off"><input id="cbInput" type="text" placeholder="궁금한 내용을 입력하세요" aria-label="질문 입력"><button type="submit">전송</button></form>
+</div>
+<script id="mn-chat-script">
+(function(){
+  'use strict';
+  /* ================= 매뉴얼 (10쪽) ================= */
+  const wrap=document.getElementById('mnWrap');
+  if(wrap){
+    const slides=[...wrap.querySelectorAll('.mn-slide')],dots=document.getElementById('mnDots'),pageEl=document.getElementById('mnPage');
+    const prev=document.getElementById('mnPrev'),next=document.getElementById('mnNext');
+    let cur=0,typer=null;
+    const reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+    slides.forEach((s,i)=>{const d=document.createElement('i');d.title=(i+1)+'. '+(s.dataset.title||'');d.onclick=()=>show(i);dots.appendChild(d);
+      const h=s.querySelector('[data-type]');
+      if(h&&!h.dataset.html){h.dataset.html=h.innerHTML;}
+    });
+    function typeTitle(slide){
+      clearInterval(typer);
+      const h=slide.querySelector('[data-type]');if(!h)return;
+      const html=h.dataset.html;
+      if(reduce){h.innerHTML=html;return;}
+      /* 글자마다 span으로 감싸 자리를 미리 확보하고 투명→표시로 바꾼다 */
+      const tmp=document.createElement('div');tmp.innerHTML=html;
+      let out='',n=0;
+      const walk=node=>{node.childNodes.forEach(c=>{
+        if(c.nodeType===3){[...c.textContent].forEach(ch=>{out+='<span class="mn-ch" data-n="'+(n++)+'" style="opacity:0">'+(ch===' '?'&nbsp;':ch.replace(/&/g,'&amp;').replace(/</g,'&lt;'))+'</span>'});}
+        else if(c.nodeName==='BR'){out+='<br>';}
+        else{walk(c);}
+      });};
+      walk(tmp);
+      h.innerHTML=out;h.classList.add('mn-cur');
+      let k=0;const chars=[...h.querySelectorAll('.mn-ch')];
+      typer=setInterval(()=>{if(k<chars.length){chars[k++].style.opacity='1';}else{clearInterval(typer);}},60);
+    }
+    function show(i){
+      cur=Math.max(0,Math.min(slides.length-1,i));
+      slides.forEach((s,k)=>{s.classList.toggle('on',k===cur)});
+      [...dots.children].forEach((d,k)=>d.classList.toggle('on',k===cur));
+      pageEl.textContent=(cur+1)+' / '+slides.length;
+      prev.disabled=cur===0;next.disabled=cur===slides.length-1;
+      /* 차트 요소 애니메이션을 쪽이 열릴 때마다 처음부터 재생 */
+      slides[cur].querySelectorAll('.mn-bar').forEach(b=>{b.style.animation='none';void b.offsetWidth;b.style.animation='';});
+      typeTitle(slides[cur]);
+      try{sessionStorage.setItem('mnPage',String(cur))}catch(e){}
+    }
+    prev.onclick=()=>show(cur-1);next.onclick=()=>show(cur+1);
+    document.addEventListener('keydown',e=>{
+      const v=document.getElementById('view-manual');
+      if(!v||!v.classList.contains('active'))return;
+      const t=e.target&&e.target.tagName;if(t==='INPUT'||t==='TEXTAREA')return;
+      if(e.key==='ArrowRight')show(cur+1);else if(e.key==='ArrowLeft')show(cur-1);
+    });
+    wrap.addEventListener('click',e=>{
+      const g=e.target.closest('[data-goto]');if(g&&typeof activateView==='function'){activateView(g.dataset.goto);return;}
+      if(e.target.closest('[data-chat]')||e.target.closest('#mnOpenChat')){window.cbOpen&&window.cbOpen();}
+    });
+    /* 매뉴얼 메뉴를 열 때마다 해당 쪽 효과를 다시 재생 */
+    const view=document.getElementById('view-manual');
+    if(window.MutationObserver&&view){new MutationObserver(()=>{if(view.classList.contains('active')){requestAnimationFrame(()=>show(cur));}}).observe(view,{attributes:true,attributeFilter:['class']});}
+    show(0);
+  }
+
+  /* ================= 챗봇 ================= */
+  const FAQ=[
+    {q:'투자 핵심 요약은 어떻게 읽나요?',k:['핵심','요약','총손익','브리지','처음'],v:'overview',a:'<b>투자 핵심 요약</b>에서 현재 보유·매도 완료·국내·해외 범위를 먼저 확인하세요. 총손익은 <b>실현손익 + 미실현손익 + 부대수익</b>이고, 손익 브리지·보유자산 구성·종목별 총손익 기여 차트 3개로 확인해요.'},
+    {q:'투자원금과 평가금액은 어떻게 계산하나요?',k:['투자원금','원금','평가금액','평가','계산'],v:'overview',a:'<b>투자원금</b>은 RAW 매수금액에 매수수수료를 더한 값(남은 주식의 장부가격)이에요. <b>평가금액</b>은 보유수량에 현재가격을 곱해요. 비상장 SpaceX는 기존 평가액을 써요.'},
+    {q:'지금 보유한 종목의 손익은 어디서 보나요?',k:['보유','미실현','평균단가','수익률','수량'],v:'holdings',a:'<b>미실현손익 분석</b>에서 종목별 보유수량·평균단가·평가금액·수익률을 봐요. 미실현손익은 <b>평가금액 − 남은 주식 원금</b>이에요. 근거 수준은 정확·복원·추정·고정으로 표시돼요.'},
+    {q:'판 주식의 실현손익은 어디서 보나요?',k:['실현','매도','판','승률','손익비','거래비용'],v:'realized',a:'<b>실현손익 분석</b>에서 종목별·누적 실현손익을 봐요. 실현손익은 <b>순매도대금 − 매도 장부원가</b>예요. 승률·손익비·거래비용은 <b>매도손익 로직</b> 화면에 있어요.'},
+    {q:'월별 손익은 어디서 확인하나요?',k:['월별','월','달','부대수익','배당'],v:'monthly-profit',a:'<b>월별 손익</b>에서 매도로 확정된 손익과 부대수익(배당·예탁금이용료·환전차액 − 세금)을 달마다 합쳐 볼 수 있어요. 거래가 없던 달도 0원으로 표시돼요.'},
+    {q:'관심 종목의 가격 흐름은 어떻게 보나요?',k:['관심','가격','종가','고점','저점','관심종목'],v:'watchlist',a:'<b>관심 종목</b>에서 선택 종목의 2021-01-01 이후 종가를 분석 요청일까지 볼 수 있어요. 미국 종목은 달러 종가예요. 이력이 비어 있으면 RAW DATA를 올리고 분석을 요청하세요.'},
+    {q:'RAW DATA는 어디서 보고, 새 파일은 어떻게 올리나요?',k:['raw','원장','업로드','파일','엑셀','올리'],v:'raw-data',a:'투자 핵심 요약 상단의 <b>＋ RAW 원장 선택</b>에서 신한·나무증권 .xls/.xlsx를 고른 뒤 <b>분석</b>을 누르세요. 결과는 <b>RAW DATA 보기</b>에서 종목·코드·증권사·거래유형으로 검색해요.'},
+    {q:'종목 비중과 집중도는 어디서 보나요?',k:['비중','집중','포트폴리오','hhi','국내','해외','etf'],v:'allocation',a:'<b>포트폴리오 구조</b>에서 종목 비중(종목 평가금액 ÷ 전체 평가금액), 상위 1·3종목, 국내·해외 구성을 봐요. 집중도(HHI)와 상품유형은 <b>배분 산출 로직</b>에서 확인해요.'},
+    {q:'위험과 변동성은 어디서 확인하나요?',k:['위험','변동성','낙폭','효율성','리스크'],v:'risk',a:'<b>위험 및 효율성</b>에서 변동성과 최대낙폭, 누적 거래비용을 봐요. 효율성 점수는 공식 위험등급이 아닌 내부 참고점수예요. 계산법은 <b>위험지표 로직</b>에 있어요.'},
+    {q:'시장(KOSPI·NASDAQ)과 내 수익률은 어떻게 비교하나요?',k:['시장','벤치마크','kospi','nasdaq','지수','비교'],v:'benchmark',a:'<b>벤치마크 비교</b>에서 KOSPI와 NASDAQ-100을 시작=100으로 맞춰 비교해요. 산 날짜가 달라 <b>참고용</b>이고, 비상장 SpaceX는 제외돼요.'}
+  ];
+  const fab=document.getElementById('cbFab'),panel=document.getElementById('cbPanel'),head=document.getElementById('cbHead'),body=document.getElementById('cbBody'),form=document.getElementById('cbForm'),input=document.getElementById('cbInput');
+  if(!fab||!panel)return;
+  const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  function addMsg(html,who,detail){
+    const m=document.createElement('div');m.className='cb-msg '+who;m.innerHTML=html;
+    if(detail){const box=document.createElement('div');box.className='cb-actions';
+      const b=document.createElement('button');b.type='button';b.className='cb-detail';b.textContent='<상세 페이지>';
+      b.onclick=()=>{if(typeof activateView==='function')activateView(detail);};
+      box.appendChild(b);m.appendChild(box);}
+    body.appendChild(m);body.scrollTop=body.scrollHeight;return m;
+  }
+  function faqList(){
+    const box=document.createElement('div');box.className='cb-faq';
+    box.innerHTML=FAQ.map((f,i)=>'<button type="button" data-i="'+i+'"><i>'+(i+1)+'</i>'+esc(f.q)+'</button>').join('');
+    box.onclick=e=>{const b=e.target.closest('button[data-i]');if(b)ask(+b.dataset.i);};
+    body.appendChild(box);body.scrollTop=body.scrollHeight;
+  }
+  function more(){const b=document.createElement('button');b.id='cbMore';b.type='button';b.textContent='↩ 다른 질문 보기';b.onclick=()=>{b.remove();faqList();};body.appendChild(b);body.scrollTop=body.scrollHeight;}
+  function ask(i){
+    document.querySelectorAll('#cbMore').forEach(x=>x.remove());
+    const f=FAQ[i];addMsg(esc(f.q),'user');
+    setTimeout(()=>{addMsg(f.a,'bot',f.v);more();},180);
+  }
+  function match(text){
+    const t=text.toLowerCase();let best=-1,score=0;
+    FAQ.forEach((f,i)=>{let s=0;f.k.forEach(k=>{if(t.includes(k))s+=k.length>1?2:1;});if(s>score){score=s;best=i;}});
+    return score>0?best:-1;
+  }
+  form.onsubmit=e=>{
+    e.preventDefault();const v=input.value.trim();if(!v)return;input.value='';
+    document.querySelectorAll('#cbMore').forEach(x=>x.remove());
+    const i=match(v);
+    if(i>=0){addMsg(esc(v),'user');setTimeout(()=>{addMsg(FAQ[i].a,'bot',FAQ[i].v);more();},180);}
+    else{addMsg(esc(v),'user');setTimeout(()=>{addMsg('질문과 맞는 답변을 찾지 못했어요. 아래 <b>자주 하는 질문</b>에서 골라 보세요. 사용법은 왼쪽 <b>매뉴얼</b> 메뉴에도 있어요.','bot','manual');faqList();},180);}
+  };
+  /* 열기·닫기 */
+  let started=false;
+  function place(){
+    const w=panel.offsetWidth||380,h=panel.offsetHeight||560;
+    panel.style.left=Math.max(4,window.innerWidth-w-22)+'px';
+    panel.style.top=Math.max(4,window.innerHeight-h-92)+'px';
+  }
+  function open(){
+    panel.classList.add('open');fab.hidden=true;
+    if(!started){started=true;place();
+      addMsg('안녕하세요! <b>모두의 주식 도우미</b>예요 👋<br>자주 하는 질문 10개 중에서 골라 보세요. 직접 입력해도 돼요.','bot');faqList();}
+    else clamp();
+    input.focus();
+  }
+  function close(){panel.classList.remove('open');fab.hidden=false;}
+  window.cbOpen=open;
+  fab.onclick=open;document.getElementById('cbClose').onclick=close;
+  /* 크게·작게 */
+  let big=false;
+  document.getElementById('cbSize').onclick=()=>{
+    big=!big;panel.style.width=(big?Math.min(620,window.innerWidth-16):380)+'px';panel.style.height=(big?Math.min(780,window.innerHeight-16):560)+'px';clamp();
+  };
+  /* 이동: 머리글을 끌면 창이 움직인다 */
+  function clamp(){
+    const w=panel.offsetWidth,h=panel.offsetHeight;
+    let l=parseFloat(panel.style.left)||0,t=parseFloat(panel.style.top)||0;
+    l=Math.min(Math.max(4,l),Math.max(4,window.innerWidth-w-4));t=Math.min(Math.max(4,t),Math.max(4,window.innerHeight-h-4));
+    panel.style.left=l+'px';panel.style.top=t+'px';
+  }
+  let drag=null;
+  head.addEventListener('pointerdown',e=>{
+    if(e.target.closest('button'))return;
+    drag={x:e.clientX-panel.offsetLeft,y:e.clientY-panel.offsetTop};
+    head.setPointerCapture(e.pointerId);
+  });
+  head.addEventListener('pointermove',e=>{
+    if(!drag)return;
+    panel.style.left=(e.clientX-drag.x)+'px';panel.style.top=(e.clientY-drag.y)+'px';clamp();
+  });
+  const end=()=>{drag=null;};
+  head.addEventListener('pointerup',end);head.addEventListener('pointercancel',end);
+  window.addEventListener('resize',()=>{if(panel.classList.contains('open'))clamp();});
+  /* 크기 변경(오른쪽 아래 모서리를 끌면 CSS resize로 변경) 후에도 화면 밖으로 나가지 않게 보정 */
+  if(window.ResizeObserver){new ResizeObserver(()=>{if(panel.classList.contains('open'))clamp();}).observe(panel);}
+})();
+
 </script>
 </body>
 </html>
