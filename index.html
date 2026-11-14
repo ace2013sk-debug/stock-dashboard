@@ -3365,5 +3365,40 @@ html{background:none!important}
 body{background:radial-gradient(circle at 14% 10%,rgba(64,93,230,.13),rgba(0,0,0,0) 34%),radial-gradient(circle at 88% 18%,rgba(225,48,108,.1),rgba(0,0,0,0) 32%),linear-gradient(135deg,rgba(64,93,230,.08),rgba(252,175,69,.12),rgba(225,48,108,.08))!important}
 #dashboardViewport>:is(.app,#dashboardApp){background:linear-gradient(135deg,rgba(64,93,230,.05),rgba(252,175,69,.08),rgba(225,48,108,.05))!important}
 </style>
+<!--ICON-START-->
+<style id="sidebar-icon-unify">
+/* 제목 앞 아이콘: 2번(뱅셀) 이미지 아이콘으로 통일 */
+html body .sidebar .brand .brand-mark{width:20px!important;height:20px!important;flex:0 0 20px!important;font-size:0!important;background:none!important;border:0!important;box-shadow:none!important;padding:0!important;margin:0!important;display:inline-flex!important}
+html body .sidebar .brand .brand-mark>svg,html body .sidebar .brand .brand-mark>*{display:none!important}
+html body .sidebar .brand .brand-mark::before{content:""!important;display:block!important;width:20px!important;height:20px!important;background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAFXElEQVR4AexZbUxbVRh+7+W2dKMC65hsfGWYSHD4NYrKJglx6iKbMsCwH84sxASC0YzF8WtLHBqXqIuaBXBZ1P2R3SlugHRLDGuhohsDxwrI11AUAQXbLayAFErb63sa2vX2i0JvuzVZc56ec+5533Oe5z3nvu1tacBXSUmJqKKiwtrGbkgVQprSarW7u7u7D4YU8yWyNEaewtdTHMe9vXQtpCqyAzbClK0RSrWjgFDibed6X4A9FHepcX8HvAW+sLBwQ35+fq87ePNbyVhAd0Cn001hel5EQuYlpGA/jQD7gpSAClCr1aaGhoat9fX1TyDbKiRuwZoIwopXqJycnPCioiKJO6CfxxQfUAE2iniEipHEZ9jvR5xC8EpeXt4OsVjcpdfrNe5QUFBwhefg0Am4gNzc3N1IvhLXHMLdSMf6JsK5xEVIJalpjyelPpmRfAfy5NTYTdGp6L/V2cHWD6gAEnmaps/jYs1ms3kn1oBfWzhSO2NDbBTsL94BpWW77uDgLsjIfNjZlNcPmABCHiNnPTZIfr9CobBGHtunUFQWj4UfnYAIcD42NvKEZ2Nj4791dXWXSVsICC6ARB4jzDs2QhD1NIegAgh5d8fG0+JCXOcJ4PCpbFrZvp5TtqdwzR1pLrjU+QjXdD2Oq+0TOy/u7dg42wrZtwuQhodHQ/Yr70tpuoajwzo4oHtdQHNdHGNRWGIMx7nma+9yLZ2ZmFIoEvlgHhvHANCHtr0Y8/RDKVlrwyXRuP1HAKiXACAK4VooIJFPx4/FA0j8PbSvP//xiR40PIHoxwxjzzbYD0qhaYpjwhmRdPnVXC06R37f+E1766Obaz+4pu7AEUNj2bFIFBXmahm4K/Rqp77Uq4GPLn4HjyVshqP5+3AaajtHG5UWVedR7AStrEoAIX/6pyZIXBcDZTv3QOSatTbCyRQNhy2qawquz/VGtxkJWa9YAB4b+OLHHyAuSgafvFbsSB5MZjOoB38N+17T9nJlTe1FvLnLnVCK2Sr2rgkgkecfGz4V3YwezrapoUlzFbTa8RfSZLLjNmzBNt4fVfhdqIjv5V/P5x0g5D0cGzsDzEzW9vNJiVCeIefhHXm6dQzTLSYxa1OQN58EeDs27lisYRiIEotd4M7W32vLChicGHfKNv4uKaz/sgLiomWwJz3TOdsIy8KP2ZYVQFLkvm3P8bKNH+sJ7upRgMFohPbhG3B1eNAtbs/9JziZ1UzoUUDLQDdUKRVQrbzgFh9eqF3NeoL7eBQwu2CApIQIOPzWM3CsPMuODw49C9szNoJ2Wi84mdVM6FEAmUwiZiA+VgqJmx7gIVIaToZXDAqAZmgmbMWOXhxoL2OCD+GnMCUKoxghJw6qAEJczIjF5MmPtIVA0AXIpNJ1kJ1NHoyE4A9BF4BPflKQyQS7D4IugLNYLDApSPCtkwRdwLRhTg96xt0v1FZCK30LuoCpuVk9FG65xwV4CSOeIDNFUbZHBy+Wvg0FdQeQtWXeZDL6Rs03q+AKwGdKUnyj5psVzRkY84LZZJieN0C1Cr+4LaFjeAhGJ6bh9Lke+PyMxo6TrAY6+yZhzrjAsye+Z9paYAbnaR3/G6q7e3g4iX2kRKOAV/Efma8cgdffuKWbgXPsZfj6y2Yeeq7/icPAONovtV+Xy+UiOmJh9ObAxFjlvNFYo+rrYm34QzfJ3rptYFt/GWNVbSMO+IsdGdezRtOi3dbm0/bbADu/aGRvTE2xytFRHlRjYywyOYsYQkic8M/sjIHtuDLE/qzu52F0REf8vnWyl+B9lBAfHy+hqb17zZKIiDqRSPQm3mCloQKGYT7F/xpm/gcAAP//l3FkvwAAAAZJREFUAwAQ3klSxbLgXwAAAABJRU5ErkJggg==") center/contain no-repeat!important}
+/* 메뉴 아이콘: 항목마다 색이 다른 이미지(이모지) 아이콘 */
+html body .sidebar .nav-item .nav-icon,html body .sidebar .nav-item i{font-family:"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoji",sans-serif!important;font-size:13px!important;font-weight:400!important;color:inherit!important}
+html body .sidebar .nav-item .nav-icon>*{display:none!important}
+html body .sidebar .nav-item i[data-lucide]::before{font-family:"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoji",sans-serif!important;font-size:13px!important;font-weight:400!important}
+html body .sidebar .nav-item .nav-icon::before{content:none!important}
+</style>
+<script id="sidebar-icon-unify-js">
+(()=>{
+const MAP=[[/정보 입력/,'👤'],[/기획/,'💡'],[/순자산|자산 현황/,'🏦'],[/자산_뱅셀/,'💼'],[/항목별 추세/,'📈'],[/재무 리뷰/,'📒'],[/요약 보기/,'📋'],[/핵심 요약|투자 핵심/,'📊'],[/월별 차트/,'📅'],[/선택 항목 차트/,'🎯'],[/근로소득/,'💰'],[/사업소득/,'🏪'],[/투자소득_주식|주식 및 대출/,'💹'],[/투자소득_부동산/,'🏠'],[/수입 상세/,'💵'],[/지출 상세/,'🧾'],[/이체 상세/,'🔁'],[/지출 금액/,'💸'],[/RAW 처리/,'🔧'],[/RAW DATA/,'🗂️'],[/분류 기준표/,'🏷️'],[/투자 계산기/,'🧮'],[/대출 계산기/,'🪙'],[/LLM/,'🤖'],[/영상 기준/,'🎬'],[/점수 기준/,'🏅'],[/매뉴얼/,'📖'],[/핵심 산출/,'⚙️'],[/미실현손익/,'🌱'],[/실현손익/,'✅'],[/관심 종목/,'⭐'],[/원금|장부원가/,'📚'],[/매도손익/,'🛒'],[/월별 손익/,'🗓️'],[/매매 타이밍/,'⏱️'],[/매매흐름/,'🌊'],[/포트폴리오/,'🥧'],[/배분 산출/,'⚖️'],[/위험 및 효율/,'🛡️'],[/위험지표/,'🚨'],[/벤치마크/,'🏆'],[/시장비교/,'🌐'],[/거래 원장/,'📜']];
+const pick=t=>{for(const [r,e] of MAP)if(r.test(t))return e;return '🔹'};
+function apply(){
+ const items=document.querySelectorAll('.sidebar .nav-item');
+ items.forEach((it,i)=>{
+  const ic=it.querySelector('.nav-icon')||it.querySelector('i');if(!ic)return;
+  const lab=it.querySelector('.nav-label');
+  const txt=(lab?lab.textContent:[...it.childNodes].filter(n=>n!==ic).map(n=>n.textContent).join('')).replace(/\s+/g,' ').trim();
+  const em=pick(txt),hue=(i*47+20)%360;
+  if(ic.tagName==='I'){ if(ic.getAttribute('data-symbol')!==em)ic.setAttribute('data-symbol',em); }
+  else if(ic.dataset.iconEmoji!==em||ic.textContent!==em){ic.textContent=em;ic.dataset.iconEmoji=em}
+  ic.style.setProperty('background','hsla('+hue+',85%,60%,.18)','important');
+ });
+}
+let q=0;const run=()=>{if(q)return;q=requestAnimationFrame(()=>{q=0;apply()})};
+const start=()=>{apply();const sb=document.querySelector('.sidebar');if(sb)new MutationObserver(run).observe(sb,{childList:true,subtree:true})};
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start();
+setTimeout(apply,800);setTimeout(apply,2500);
+})();
+</script>
+<!--ICON-END-->
 </body>
 </html>
