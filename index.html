@@ -708,7 +708,7 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
       <div class="nav-group-label menu-label">안내</div>
       <button class="nav-item" data-view="manual"><span class="nav-icon" data-icon="manual-book" data-tone="pink" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><path d="M4 3.5h8.5A2.5 2.5 0 0 1 15 6v10.5H6.5A2.5 2.5 0 0 1 4 14z"/><path d="M4 14a2.5 2.5 0 0 1 2.5-2.5H15"/></svg></span><span>매뉴얼</span></button>
     </nav>
-    <div class="sidebar-note">본 화면은 거래 원장과 평가가격을 분석한 참고자료입니다. 세무 신고나 투자 권유를 위한 자료가 아닙니다.</div>
+    <div class="chat"><button id="cbFab" type="button" aria-label="챗봇 열기" title="챗봇"><span class="cb-ic">💬</span><span>챗봇</span></button></div>
   </aside>
 
   <main class="main">
@@ -3165,7 +3165,7 @@ fitDashboardToViewport();
 window.addEventListener('resize',fitDashboardToViewport);
 window.addEventListener('orientationchange',fitDashboardToViewport);
 </script>
-<button id="cbFab" type="button" aria-label="챗봇 열기" title="챗봇">💬</button>
+
 <div id="cbPanel" role="dialog" aria-label="모두의 주식 챗봇">
   <div id="cbHead"><b>💬 모두의 주식 도우미 <small>(끌어서 이동)</small></b><button id="cbSize" type="button" title="크게·작게" aria-label="크기 전환">⤢</button><button id="cbClose" type="button" title="닫기" aria-label="닫기">✕</button></div>
   <div id="cbBody"></div>
@@ -3403,6 +3403,13 @@ setTimeout(apply,800);setTimeout(apply,2500);
 /* 본문 상단 바 통일(기준: 1번 구글 가계부). 바 안의 버튼 색상·기능·내용은 유지, 바를 감싸는 틀만 변경 */
 body main.main{padding:14px 22px!important;gap:10px!important}
 body main.main>header.topbar#dashboardHeader,body main.main>#dashboardBrokerControls{box-sizing:border-box!important;margin:0!important;padding:1px 14px!important;min-height:45px!important;height:auto!important;border-radius:18px!important;background:rgba(255,255,255,.9)!important;border:1px solid rgb(225,230,242)!important;box-shadow:0 12px 28px rgba(64,93,230,.07)!important}
+</style>
+<style id="sidebar-chat-btn">
+/* 챗봇 버튼: 사이드바 하단 고정(설명 영역 삭제 자리) */
+body .sidebar .chat{flex:0 0 auto;margin-top:auto;padding:12px 14px 16px;border-top:1px solid rgba(64,93,230,.14)}
+body .sidebar #cbFab,body .sidebar #cbFab[hidden]{position:static!important;display:flex!important;width:100%!important;height:42px!important;border-radius:16px!important;border:0!important;box-shadow:none!important;transform:none!important;background:linear-gradient(135deg,#e1306c,#833ab4,#405de6)!important;color:#fff!important;align-items:center;justify-content:center;gap:8px;font-family:Pretendard,"Malgun Gothic",sans-serif!important;font-size:13px!important;font-weight:800!important;cursor:pointer;padding:0 11px}
+body .sidebar #cbFab:hover{filter:brightness(1.06)}
+body .sidebar #cbFab .cb-ic{font-size:16px;line-height:1}
 </style>
 <!--ICON-END-->
 </body>
