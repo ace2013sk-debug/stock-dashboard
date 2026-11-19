@@ -708,7 +708,7 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
       <div class="nav-group-label menu-label">안내</div>
       <button class="nav-item" data-view="manual"><span class="nav-icon" data-icon="manual-book" data-tone="pink" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><path d="M4 3.5h8.5A2.5 2.5 0 0 1 15 6v10.5H6.5A2.5 2.5 0 0 1 4 14z"/><path d="M4 14a2.5 2.5 0 0 1 2.5-2.5H15"/></svg></span><span>매뉴얼</span></button>
     </nav>
-    <div class="chat"><button id="cbFab" type="button" aria-label="챗봇 열기" title="챗봇"><span class="cb-ic">💬</span><span>챗봇</span></button></div>
+    <div class="chat"><button id="cbFab" type="button" aria-label="챗봇 열기" title="챗봇"><span class="cb-ic">💬</span><span>챗봇</span></button><button id="modeBtn" type="button" data-target="sample.html" title="클릭하면 샘플 데이터 화면으로 전환합니다"><span>🔀 샘플/리얼</span><small>현재: 리얼</small></button></div>
   </aside>
 
   <main class="main">
@@ -3412,5 +3412,5 @@ body .sidebar #cbFab:hover{filter:brightness(1.06)}
 body .sidebar #cbFab .cb-ic{font-size:16px;line-height:1}
 </style>
 <!--ICON-END-->
-</body>
+<style id="mode-btn-css">.sidebar .chat #cbFab{margin-bottom:8px}#modeBtn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;width:100%;height:46px;padding:0 11px;border:1.5px solid #833ab4;border-radius:16px;background:#fff;color:#833ab4;font:800 13px/1.2 Pretendard,"Malgun Gothic",sans-serif;cursor:pointer}#modeBtn small{font-size:10.5px;font-weight:700;color:#7a8399}#modeBtn:hover{background:#f6effb}</style><script>document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('#modeBtn');if(b)location.href=b.dataset.target});</script></body>
 </html>
